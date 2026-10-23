@@ -10,11 +10,11 @@
 
 ## 部署到 GitHub Pages
 
-1. 建立 repo（預設網址設定為 `https://ssssuuunnnn.github.io/fitness-instructor-quiz/`）
+1. 建立 repo（預設網址設定為 `https://www.sunkuo.cc/fitness-instructor-quiz/`）
 2. 把這個資料夾所有檔案（含 `.nojekyll`）放到 repo 根目錄並 push
 3. Settings → Pages → Source 選 `Deploy from a branch`，Branch 選 `main` / `(root)`
 
-若 repo 名稱或網址不同，請全域取代以下檔案中的 `https://ssssuuunnnn.github.io/fitness-instructor-quiz/`：
+若 repo 名稱或網址不同，請全域取代以下檔案中的 `https://www.sunkuo.cc/fitness-instructor-quiz/`：
 `index.html`、`review.html`、`bank.html`、`robots.txt`、`sitemap.xml`。
 
 上線後可到 Google Search Console 提交 `sitemap.xml`。
