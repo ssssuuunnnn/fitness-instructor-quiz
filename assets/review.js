@@ -31,7 +31,7 @@
     }).join('')+(rows.length>st.limit?`<button class="btn ghost" id="more">再顯示 ${Math.min(60,rows.length-st.limit)} 題（尚有 ${rows.length-st.limit} 題）</button>`:'');
     const m=$('#more'); if(m) m.onclick=()=>{st.limit+=60;render()};
     const ss=sessions.all();
-    $('#sessions').innerHTML=ss.length?`<table><thead><tr><th>時間</th><th>範圍</th><th>成績</th></tr></thead><tbody>`+ss.slice(0,20).map(s=>{const d=new Date(s.t);return `<tr><td>${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}</td><td>${s.mode==='wrong'?'錯題・':''}${esc(s.sj)}</td><td>${s.correct} / ${s.total}（${Math.round(s.correct/s.total*100)}%）</td></tr>`}).join('')+`</tbody></table>`:'<p class="hint">還沒有測驗紀錄。</p>';
+    $('#sessions').innerHTML=ss.length?`<table><thead><tr><th>時間</th><th>範圍</th><th>成績</th></tr></thead><tbody>`+ss.slice(0,20).map(s=>{const d=new Date(s.t);return `<tr><td>${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}</td><td>${s.mode==='wrong'?'錯題・':s.mode==='new'?'新題・':''}${esc(s.sj)}</td><td>${s.correct} / ${s.total}（${Math.round(s.correct/s.total*100)}%）</td></tr>`}).join('')+`</tbody></table>`:'<p class="hint">還沒有測驗紀錄。</p>';
   }
   $('#tabs').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;st.tab=b.dataset.k;st.limit=60;render()};
   $('#sj').onchange=e=>{st.sj=e.target.value;st.limit=60;render()};

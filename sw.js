@@ -1,6 +1,6 @@
-/* Service worker：離線可用。版本 cb46139e */
-const CACHE='fiq-cb46139e';
-const PRECACHE=["./", "index.html", "review.html", "bank.html", "manifest.webmanifest", "data/questions.json", "assets/style.css?v=cb46139e", "assets/common.js?v=cb46139e", "assets/quiz.js?v=cb46139e", "assets/review.js?v=cb46139e", "assets/bank.js?v=cb46139e", "icons/icon-192.png", "icons/icon-512.png", "icons/favicon.svg", "icons/apple-touch-icon.png"];
+/* Service worker：離線可用。版本 14614e24 */
+const CACHE='fiq-14614e24';
+const PRECACHE=["./", "index.html", "review.html", "bank.html", "manifest.webmanifest", "data/questions.json", "assets/style.css?v=14614e24", "assets/common.js?v=14614e24", "assets/quiz.js?v=14614e24", "assets/review.js?v=14614e24", "assets/bank.js?v=14614e24", "icons/icon-192.png", "icons/icon-512.png", "icons/favicon.svg", "icons/apple-touch-icon.png"];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(PRECACHE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
