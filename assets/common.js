@@ -1,6 +1,6 @@
 /* 共用：資料載入、紀錄存取、題目卡片 */
 (function(){
-  const KEY_HIST='fiq-history-v1', KEY_SESS='fiq-sessions-v1', KEY_CUR='fiq-current-v1';
+  const KEY_HIST='fiq-history-110-v1', KEY_SESS='fiq-sessions-110-v1', KEY_CUR='fiq-current-110-v1';
   const L='ABCD';
   const store={
     get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
