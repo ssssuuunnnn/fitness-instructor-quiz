@@ -9,12 +9,12 @@
   const SUBJ=data.subjects;
   const params=new URLSearchParams(location.search);
   const pm=params.get('mode');
-  const opt={sj:'全部', mode:['wrong','new'].includes(pm)?pm:'all', count:30};
+  const opt={sj:'全部', mode:['wrong','new','109'].includes(pm)?pm:'all', count:30};
 
   function wrongIds(){const h=hist.all();return Object.keys(h).filter(k=>h[k].ok===false).map(Number).filter(id=>data.byId.has(id))}
   function newIds(){const h=hist.all();return data.questions.map(q=>q.id).filter(id=>!h[id])}
   function pool(){
-    let ids=opt.mode==='wrong'?wrongIds():opt.mode==='new'?newIds():data.questions.map(q=>q.id);
+    let ids=opt.mode==='wrong'?wrongIds():opt.mode==='new'?newIds():opt.mode==='109'?data.q109.map(q=>q.id):data.questions.map(q=>q.id);
     if(opt.sj!=='全部') ids=ids.filter(id=>data.byId.get(id).sj===opt.sj);
     return ids;
   }
@@ -28,8 +28,8 @@
     setup.hidden=false; quiz.hidden=true;
     chips($('#sjChips'),['全部',...SUBJ],'sj');
     const w=wrongIds().length, nw=newIds().length;
-    const ML={all:`全部題目（${data.questions.length}）`,new:`還沒做過的題目（${nw}）`,wrong:`只出錯題（${w}）`};
-    chips($('#modeChips'),['all','new','wrong'],'mode',v=>ML[v]);
+    const ML={all:`全部題目（${data.questions.length}）`,new:`還沒做過的題目（${nw}）`,wrong:`只出錯題（${w}）`,'109':`109 年題目（${data.q109.length}）`};
+    chips($('#modeChips'),['all','new','wrong','109'],'mode',v=>ML[v]);
     chips($('#countChips'),[10,30,50],'count',v=>`${v} 題`);
     const n=pool().length;
     $('#poolInfo').textContent=n?`符合條件的題目共 ${n} 題，將隨機抽出 ${Math.min(n,opt.count)} 題。`:(opt.mode==='wrong'?'目前沒有錯題，先做一回全部題目的測驗吧。':opt.mode==='new'?'這個範圍的題目你都做過了，可以改選全部題目或只出錯題。':'這個科目沒有題目。');
@@ -50,7 +50,7 @@
   function renderQuiz(){
     const cur=current.get(); if(!cur) return renderSetup();
     setup.hidden=true; quiz.hidden=false; confirmArmed=false;
-    $('#quizTitle').textContent=`${cur.mode==='wrong'?'錯題練習':cur.mode==='new'?'新題練習':'隨機測驗'}・${cur.sj}・${cur.ids.length} 題`;
+    $('#quizTitle').textContent=`${cur.mode==='wrong'?'錯題練習':cur.mode==='new'?'新題練習':cur.mode==='109'?'109 年題目':'隨機測驗'}・${cur.sj}・${cur.ids.length} 題`;
     list.innerHTML=cur.ids.map((id,i)=>{
       const q=data.byId.get(id);
       const opts=q.o.map((o,j)=>`<li><label class="opt"><input type="radio" name="q${id}" value="${L[j]}" ${cur.picks[id]===L[j]?'checked':''} ${cur.submitted?'disabled':''}><span class="L">(${L[j]})</span><span>${esc(o)}</span></label></li>`).join('');

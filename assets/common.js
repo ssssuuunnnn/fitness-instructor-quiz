@@ -13,7 +13,7 @@
     if(cache) return cache;
     const r=await fetch('data/questions.json');
     const j=await r.json();
-    cache={...j, byId:new Map(j.questions.map(q=>[q.id,q]))};
+    cache={...j, q109:j.q109||[], byId:new Map([...j.questions,...(j.q109||[])].map(q=>[q.id,q]))};
     return cache;
   }
   /* 作答紀錄：{ [id]: {n:作答次數, w:答錯次數, last:'A'|'', ok:true|false, t:時間} } */
