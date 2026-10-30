@@ -1,7 +1,7 @@
-/* Service worker：離線可用。版本 874ac704 */
-const CACHE='fiq-874ac704';
-const PRECACHE=["./", "index.html", "review.html", "bank.html", "manifest.webmanifest", "data/questions.json", "assets/style.css?v=874ac704", "assets/common.js?v=874ac704", "assets/quiz.js?v=874ac704", "assets/review.js?v=874ac704", "assets/bank.js?v=874ac704", "icons/icon-192.png", "icons/icon-512.png", "icons/favicon.svg", "icons/apple-touch-icon.png"];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(PRECACHE)).then(()=>self.skipWaiting()))});
+/* Service worker：離線可用。版本 543292a4 */
+const CACHE='fiq-543292a4';
+const PRECACHE=["./", "index.html", "review.html", "bank.html", "manifest.webmanifest", "data/questions.json?v=543292a4", "assets/style.css?v=543292a4", "assets/common.js?v=543292a4", "assets/quiz.js?v=543292a4", "assets/review.js?v=543292a4", "assets/bank.js?v=543292a4", "icons/icon-192.png", "icons/icon-512.png", "icons/favicon.svg", "icons/apple-touch-icon.png"];
+self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(PRECACHE.map(u=>new Request(u,{cache:'reload'})))).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
   const r=e.request; if(r.method!=='GET'||new URL(r.url).origin!==location.origin) return;

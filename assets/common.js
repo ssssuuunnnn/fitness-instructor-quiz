@@ -11,7 +11,7 @@
   let cache=null;
   async function loadData(){
     if(cache) return cache;
-    const r=await fetch('data/questions.json');
+    const r=await fetch('data/questions.json?v='+(window.FIQ_VER||Date.now()));
     const j=await r.json();
     cache={...j, q109:j.q109||[], byId:new Map([...j.questions,...(j.q109||[])].map(q=>[q.id,q]))};
     return cache;
